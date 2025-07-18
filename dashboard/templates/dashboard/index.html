@@ -1,0 +1,27 @@
+{% extends "dashboard/layout.html" %}
+{% load static %}
+
+{% block body %}
+<a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+<hr>
+
+
+<form method="get">
+    <label>Enter Patient ID:</label>
+    <input type="text" name="patient_id" />
+    <button type="submit">Search</button>
+</form>
+
+{% if patient %}
+<h2>{{ patient.name.0.given.0 }} {{ patient.name.0.family }}</h2>
+<p>Gender: {{ patient.gender }}</p>
+<p>Birth Date: {{ patient.birthDate }}</p>
+{% elif request.GET.patient_id %}
+<p>Patient not found or invalid ID.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
