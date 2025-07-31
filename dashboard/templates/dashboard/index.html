@@ -2,12 +2,9 @@
 {% load static %}
 
 {% block body %}
-<a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
-<hr>
-
 
 <form method="get">
-    <label>Enter Patient ID:</label>
+    <label>Search Patient ID:</label>
     <input type="text" name="patient_id" />
     <button type="submit">Search</button>
 </form>
@@ -23,5 +20,5 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'mail/inbox.js' %}"></script>
+<!--<script src="{% static 'dashboard/script.js' %}"></script>-->
 {% endblock %}

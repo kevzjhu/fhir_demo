@@ -1,0 +1,25 @@
+{% extends "dashboard/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div>
+    <h3>New Patient</h3>
+    <form id="new-patient">
+        <div class="form-group">
+            Given Name: <input class="form-control" id="given-name">
+        </div>
+        <div class="form-group">
+            Family Name <input class="form-control" id="family-name">
+        </div>
+        <input type="submit" class="btn btn-primary" />
+    </form>
+</div>
+
+
+{% endblock %}
+
+
+{% block script %}
+<script src="{% static 'dashboard/script.js' %}"></script>
+{% endblock %}

@@ -10,34 +10,54 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
 
-# Create your views here.
+fhir_base = "http://localhost:8080/fhir"
 
 
 def index(request):
 
-    # Authenticated users view their inbox
     if request.user.is_authenticated:
-        return render(request, "dashboard/index.html")
 
-    # Everyone else is prompted to sign in
+        if request.method == "GET" and "patient_id" in request.GET:
+            print(request.GET)
+            patient_id = request.GET["patient_id"]
+            url = f"{fhir_base}/Patient/{patient_id}"
+            response = requests.get(url)
+            if response.status_code == 200:
+                patient_data = response.json()
+                return render(
+                    request, "dashboard/index.html", {"patient": patient_data}
+                )
+
+        return render(request, "dashboard/index.html")
     else:
         return HttpResponseRedirect(reverse("login"))
 
 
-def dashboard(request):
-
-    patient_data = None
-    if "patient_id" in request.GET:
-        patient_id = request.GET["patient_id"]
-        url = f"https://hapi.fhir.org/baseR4/Patient/{patient_id}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            patient_data = response.json()
-
-    return render(request, "dashboard/index.html", {"patient": patient_data})
+# displays list of patients
+def patient(request):
+    pass
 
 
-# login/logout/register/
+# need csrf token
+@login_required
+def create(request):
+
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print(data)
+
+        response = requests.post(
+            f"{fhir_base}/Patient",
+            headers={"Content-Type": "application/fhir+json"},
+            data=json.dumps(data),
+        )
+        return JsonResponse(response.json(), status=response.status_code)
+        # return redirect("/dashboard/index.html")
+    else:
+        return render(request, "dashboard/create.html")
+
+
+# login/logout/register
 def login_view(request):
     if request.method == "POST":
 

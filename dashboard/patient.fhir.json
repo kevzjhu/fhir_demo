@@ -1,0 +1,32 @@
+{
+    "resourceType": "Patient",
+    "name": [
+        {
+            "use": "official",
+            "given": [
+                "Kevin"
+            ],
+            "family": "Hutchinson"
+        }
+    ],
+    "gender": "male",
+    "birthDate": "1999-12-04",
+    "telecom": [
+        {
+            "value": "9055259140",
+            "use": "mobile",
+            "system": "phone"
+        }
+    ],
+    "address": [
+        {
+            "line": [
+                "1280 Main Street West"
+            ],
+            "city": "Hamilton",
+            "state": "ON",
+            "country": "Canada",
+            "postalCode": "L8S4L8"
+        }
+    ]
+}
